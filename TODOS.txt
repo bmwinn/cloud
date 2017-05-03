@@ -1,0 +1,7 @@
+* add enemy parent class
+* implement enemies
+* implement collision
+* implement consequences / avoidance
+* add art
+* add animations
+* add music
