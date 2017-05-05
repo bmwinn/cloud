@@ -1,6 +1,8 @@
 #Greenfoot properties
-#Fri May 05 10:02:03 PDT 2017
+#Fri May 05 10:40:52 PDT 2017
+class.House.superclass=SeaLevel
 target4.type=ClassTarget
+class.SeaLevel.superclass=greenfoot.Actor
 dependency3.from=Cloud
 target3.height=50
 target5.height=50
@@ -61,6 +63,7 @@ editor.fx.0.height=722
 target1.x=0
 dependency1.type=UsesDependency
 readme.height=58
+class.Hills.image=hillsSmall.png
 target2.name=Bird
 readme.name=@README
 package.numDependencies=4
@@ -70,12 +73,14 @@ target4.width=80
 class.Cloud.superclass=greenfoot.Actor
 dependency2.from=Background
 class.Balloon.superclass=Enemy
+class.House.image=farHouseSmall.png
 dependency2.type=UsesDependency
 target5.typeParameters=
 world.lastInstantiated=Background
 target2.showInterface=false
 mainWindow.height=788
 target3.name=Cloud
+class.Hills.superclass=SeaLevel
 target3.width=80
 project.charset=UTF-8
 target4.showInterface=false
