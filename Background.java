@@ -9,27 +9,48 @@ import java.util.*;
  */
 public class Background extends World
 {
-
-    /**
-     * Constructor for objects of class Background.
-     * 
-     */
-    
     private int bg;
-    private boolean first1, first2;
+    private boolean first1, first2, first3;
     
     private ArrayList<Bird> birds;
     private ArrayList<Balloon> balloons;
     private ArrayList<SeaLevel> seaLevel;
+    private ArrayList<CloudFriend> friends;
     
     public int getBG() { return bg; }
-    public void addBG() { bg++; if (bg == 2) first2 = true;}
-    public void subBG() { bg--; if (bg == 1) first1 = true; }
+    public void addBG() { bg++; if (bg == 2) first2 = true; else if (bg == 3) first3 = true; }
+    public void subBG() { bg--; if (bg == 1) first1 = true; else if (bg == 2) first2 = true; }
     
-    private void setupBackground1() {
-        first1 = false;
-        removeObjects(balloons);
-        
+    private void addBalloons() {
+        for (int i = 0; i < 2; i++) {
+            Balloon b = new Balloon(i + 10, i + 20, i + 11, i + 21);
+            addObject(b, i + 10, i + 20);
+            balloons.add(b);
+        }
+    }
+    
+    private void addFriends() {
+        for (int i = 0; i < 5; i++) {
+            CloudFriend c = new CloudFriend();
+            int y = 20;
+            if (i % 2 == 1) { y -= 10; }
+            addObject(c, i * 100, y);
+        }
+    }
+    
+    private void addBirds() {
+        for (int i = 0; i < 25; i++) {
+            int y = (i + 2) * 20;
+            int x = (i + 2) * 10;
+            if (i % 2 == 1) { y += 50; }
+            if (i % 3 == 1) { x += 30; }
+            Bird b = new Bird(x, y, 1, 2, i);
+            addObject(b, x, y);
+            birds.add(b);
+        }
+    }
+    
+    private void addSeaLevel() {
         Hills h = new Hills();
         addObject(h, getWidth() / 2, 530);
         House houseA = new House();
@@ -39,28 +60,27 @@ public class Background extends World
         seaLevel.add(houseA);
         seaLevel.add(houseB);
         seaLevel.add(h);
-        
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i);
-            Bird b = new Bird((i + 2)* 10, (i + 2) * 20, 1, 2, i);
-            System.out.println("bird");
-            birds.add(b);
-            System.out.println("birds");
-            addObject(b, (i + 2) * 10, (i + 2) * 20);
-            System.out.println("add");
-        }        
+    }
+    
+    private void setupBackground1() {
+        first1 = false;
+        removeObjects(balloons);
+        addSeaLevel();
+        addBirds();
     }
     
     private void setupBackground2() {
         first2 = false;
         removeObjects(seaLevel);
         removeObjects(birds);
-        
-        for (int i = 0; i < 2; i++) {
-            Balloon b = new Balloon(i + 10, i + 20, i + 11, i + 21);
-            balloons.add(b);
-            addObject(b, i + 10, i + 20);
-        }
+        removeObjects(friends);
+        addBalloons();
+    }
+    
+    private void setupBackground3() {
+        first3 = false;
+        removeObjects(balloons);
+        addFriends();
     }
     
     public Background()
@@ -68,10 +88,11 @@ public class Background extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(480, 640, 1);
         bg = 1;
-        first1 = first2 = false;
+        first1 = first2 = first3 = false;
         birds = new ArrayList<Bird>();
         balloons = new ArrayList<Balloon>();
         seaLevel = new ArrayList<SeaLevel>();
+        friends = new ArrayList<CloudFriend>();
         
         addObject(new Cloud(60, getHeight() - 100), 60, getHeight() - 100);
         
@@ -84,6 +105,9 @@ public class Background extends World
         }
         else if (bg == 2 && first2) {
             setupBackground2();
+        }
+        else if (bg == 3 && first3) {
+            setupBackground3();
         }
     }
     
