@@ -1,5 +1,6 @@
 * add enemy parent class
 * implement enemies
+  -> enemies carry over despite backround change <-
 * implement collision
 * implement consequences / avoidance
 * add art

@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.lang.Math;
+import java.util.List;
 
 /**
  * Write a description of class Cloud here.
@@ -74,7 +75,8 @@ public class Cloud extends Actor
     }
     
     private void collision() {
-        if (isTouching(Enemy.class)) {
+        List intersecting = getIntersectingObjects(Enemy.class);
+        if (!intersecting.isEmpty()) {
             health--;
             System.out.println("ouch!");
         }

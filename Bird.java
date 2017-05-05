@@ -22,14 +22,10 @@ public class Bird extends Enemy
     private void step() {
         if (isAtEdge()) {
             if (posX - 1 <= 0 || posX + 1 >= getWorld().getWidth()) {
-                System.out.print("dirX: " + dirX + " ");
                 dirX *= -1;
-                System.out.println(dirX);
             }
             if (posY - 1 <= 0 || posY + 1 >= getWorld().getHeight()) {
-                System.out.print("dirY: " + dirY + " ");
                 dirY *= -1;
-                System.out.println(dirY);
             }
         }
         
