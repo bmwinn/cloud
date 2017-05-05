@@ -28,17 +28,36 @@ public class Cloud extends Actor
         double distX = getWorld().getBackground().getWidth();
         double distY = getWorld().getBackground().getHeight();
         
+        // if user wants to travel right
         if (Greenfoot.isKeyDown("right")) {
+            // don't let character image bleed past world edge
             if (posX + halfX < distX) { posX += 2; }
         }
         if (Greenfoot.isKeyDown("left")) {
             if (posX - halfX > 0) { posX -= 2; }
         }
+        
+        Background back = getWorldOfType(Background.class);
         if (Greenfoot.isKeyDown("up")) {
-            if (posY - halfY > 0 ) { posY -= 2; }
+            if (isAtEdge()) {
+                if (back.getBG() < 2) {
+                    back.addBG();
+                    getWorld().setBackground("background" + back.getBG() + ".png");
+                    posY = distY - halfY;
+                }
+            }
+            else { posY -= 2; }
         }
+        
         if (Greenfoot.isKeyDown("down")) {
-            if (posY + halfY < distY) { posY += 2; }
+            if (isAtEdge()) {
+                if (back.getBG() > 1) {
+                    back.subBG();
+                    getWorld().setBackground("background" + back.getBG() + ".png");
+                    posY = halfY;
+                }
+            }
+            else { posY += 2; }
         }
     }
     
@@ -52,8 +71,8 @@ public class Cloud extends Actor
     {
         frame++;
         
-        animate();
         step();
+        animate();
         
         setLocation((int)posX, (int)posY);
     }    
