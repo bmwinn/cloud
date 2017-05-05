@@ -26,8 +26,10 @@ public class Background extends World
         super(480, 640, 1);
         bg = 1;
         
-        int startX = 60;
-        int startY = getHeight() - 40;
-        addObject(new Cloud(startX, startY), startX, startY);
+        addObject(new Cloud(60, getHeight() - 40), 60, getHeight() - 40);
+        
+        for (int i = 2; i < 12; i++) {
+            addObject(new Bird(i * 10, i * 20, 1, 2, i - 2), i * 10, i * 20);
+        }
     }
 }

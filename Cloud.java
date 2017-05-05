@@ -16,13 +16,15 @@ public class Cloud extends Actor
     
     private double posX, posY;
     private double frame;
+    private int health;
     
     public Cloud(int posX, int posY) {
         this.posX = (double)posX;
         this.posY = (double)posY;
+        health = 100;
     }
   
-    public void step() {
+    private void step() {
         double halfX = getImage().getWidth() / 2.0;
         double halfY = getImage().getHeight() / 2.0;
         double distX = getWorld().getBackground().getWidth();
@@ -65,17 +67,50 @@ public class Cloud extends Actor
         }
     }
     
-    public void animate() {
+    private void animate() {
         if (frame % 10 == 0) {
             posY += 1.5 * Math.sin(frame);
         }
     }
+    
+    private void collision() {
+        if (isTouching(Enemy.class)) {
+            health--;
+            System.out.println("ouch!");
+        }
+    }
+    
+    private void checkHealth() {
+        if (health < 0) {
+            System.out.println("game over");
+            setImage("cloud.png");
+            Greenfoot.stop();
+        }
+        else if (health < 30) {
+            System.out.println("careful!");
+            setImage("cloud.png");
+        }
+        else if (health < 60) {
+            System.out.println("doing ok.");
+            setImage("cloud.png");
+        }
+        else if (health < 90) {
+            System.out.println("good work!");
+            setImage("cloud.png");
+        }
+        else {
+            setImage("cloud.png");
+        }
+    }
+            
     
     public void act() 
     {
         frame++;
         
         step();
+        collision();
+        checkHealth();
         animate();
         
         setLocation((int)posX, (int)posY);
