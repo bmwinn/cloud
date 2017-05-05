@@ -39,25 +39,29 @@ public class Cloud extends Actor
         
         Background back = getWorldOfType(Background.class);
         if (Greenfoot.isKeyDown("up")) {
-            if (isAtEdge()) {
-                if (back.getBG() < 2) {
+            if (isAtEdge() && posY - halfY - 5 < 0) {
+                if (back.getBG() < 3) {
                     back.addBG();
                     getWorld().setBackground("background" + back.getBG() + ".png");
                     posY = distY - halfY;
                 }
             }
-            else { posY -= 2; }
+            else {
+                posY -= 2;
+            }
         }
         
         if (Greenfoot.isKeyDown("down")) {
-            if (isAtEdge()) {
+            if (isAtEdge() && posY + halfY + 5 > distY) {
                 if (back.getBG() > 1) {
                     back.subBG();
                     getWorld().setBackground("background" + back.getBG() + ".png");
                     posY = halfY;
                 }
             }
-            else { posY += 2; }
+            else {
+                posY += 2;
+            }
         }
     }
     
